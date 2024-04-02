@@ -22,6 +22,7 @@
     <ClCompile Include="..\Effects\Display\Display.cpp" />
     <ClCompile Include="..\Effects\Flou\Flou.cpp" />
     <ClCompile Include="..\Materials\BaseMaterial\BaseMaterial.cpp" />
+    <ClCompile Include="..\Materials\GrassMaterial\GrassMaterial.cpp" />
     <ClCompile Include="..\Materials\PhongMaterial\PhongMaterial.cpp" />
     <ClCompile Include="..\Materials\Rotation\Rotation.cpp" />
     <ClCompile Include="..\Materials\TextureMaterial\TextureMaterial.cpp" />
@@ -72,6 +73,7 @@
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\Texture2D.h" />
     <ClInclude Include="..\Materials\BaseMaterial\BaseMaterial.h" />
+    <ClInclude Include="..\Materials\GrassMaterial\GrassMaterial.h" />
     <ClInclude Include="..\Materials\PhongMaterial\PhongMaterial.h" />
     <ClInclude Include="..\Materials\Rotation\Rotation.h" />
     <ClInclude Include="..\Materials\TextureMaterial\TextureMaterial.h" />
@@ -95,6 +97,8 @@
     <None Include="..\Effects\Flou\FlouV-FS.glsl" />
     <None Include="..\Materials\BaseMaterial\Main-FS.glsl" />
     <None Include="..\Materials\BaseMaterial\Main-VS.glsl" />
+    <None Include="..\Materials\GrassMaterial\GrassMaterial-FS.glsl" />
+    <None Include="..\Materials\GrassMaterial\GrassMaterial-VS.glsl" />
     <None Include="..\Materials\PhongMaterial\PhongMaterial-FS.glsl" />
     <None Include="..\Materials\PhongMaterial\PhongMaterial-VS.glsl" />
     <None Include="..\Materials\TextureMaterial\TextureMaterial-FS.glsl" />

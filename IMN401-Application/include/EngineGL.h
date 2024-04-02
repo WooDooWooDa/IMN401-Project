@@ -121,5 +121,8 @@ protected:
 	Display* display;
 	Flou* flou;
 
+	NodeCollector* opaqueNodes;
+	NodeCollector* transparentNodes;
+
 };
 #endif

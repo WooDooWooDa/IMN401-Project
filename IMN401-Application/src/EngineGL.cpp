@@ -126,6 +126,11 @@ bool EngineGL::init()
 	materialSol->addAOMap(solAO);
 	materialSol->addDispMap(solDisp, 10);
 
+	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png");
+	Texture2D* grassAlpha = new Texture2D(ObjPath + "Textures/grass-alpha.png");
+	TextureMaterial* materialGrass = new TextureMaterial("grass");
+	materialGrass->addAlbedoMap(grassTexture);
+
 	BaseMaterial* materialSphere = new BaseMaterial("IMN401-TP2-sphere");
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
 	
@@ -155,6 +160,13 @@ bool EngineGL::init()
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 
+	Node* grass = scene->getNode("Grass");
+	//Create a plane
+	grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
+	grass->frame()->rotate( glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
+	grass->setMaterial(materialGrass);
+	sol->adopt(grass);
+
 
 	scene->getEffect<Flou>("Flou");
 
@@ -169,9 +181,18 @@ void EngineGL::render ()
 	myFBO->enable();
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	for (unsigned int i = 0; i < allNodes->nodes.size(); i++)
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
+		if (allNodes->nodes[i]->isTransparent) {
+			glDepthMask(GL_FALSE);
+		}
+		else {
+			glDepthMask(GL_TRUE);
+		}
 		allNodes->nodes[i]->render();
-	
+	}
 	myFBO->disable();
 	flou->apply(myFBO, NULL);
 	//display->apply(myFBO, NULL);
