@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Effects\Display\Display.cpp" />
+    <ClCompile Include="..\Effects\Flou\Flou.cpp" />
+    <ClCompile Include="..\Materials\BaseMaterial\BaseMaterial.cpp" />
+    <ClCompile Include="..\Materials\PhongMaterial\PhongMaterial.cpp" />
+    <ClCompile Include="..\Materials\Rotation\Rotation.cpp" />
+    <ClCompile Include="..\Materials\TextureMaterial\TextureMaterial.cpp" />
+    <ClCompile Include="..\src\Application.cpp" />
+    <ClCompile Include="..\src\Camera.cpp" />
+    <ClCompile Include="..\src\EffectGL.cpp" />
+    <ClCompile Include="..\src\EngineGL.cpp" />
+    <ClCompile Include="..\src\Frame.cpp" />
+    <ClCompile Include="..\src\FrameBufferObject.cpp" />
+    <ClCompile Include="..\src\GeometricModel.cpp" />
+    <ClCompile Include="..\src\GeometricModelLoader\AssimpLoader.cpp" />
+    <ClCompile Include="..\src\GeometricModelLoader\OBJLoader.cpp" />
+    <ClCompile Include="..\src\GLProgram.cpp" />
+    <ClCompile Include="..\src\GLProgramPipeline.cpp" />
+    <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\MaterialGL.cpp" />
+    <ClCompile Include="..\src\ModelGL.cpp" />
+    <ClCompile Include="..\src\Node.cpp" />
+    <ClCompile Include="..\src\Scene.cpp" />
+    <ClCompile Include="..\src\Texture2D.cpp" />
+    <ClCompile Include="..\third_party\glad\src\glad.c" />
+    <ClCompile Include="..\third_party\image_DXT.cpp" />
+    <ClCompile Include="..\third_party\imgui\imgui.cpp" />
+    <ClCompile Include="..\third_party\imgui\imgui_demo.cpp" />
+    <ClCompile Include="..\third_party\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\third_party\imgui\imgui_impl_glfw_gl3.cpp" />
+    <ClCompile Include="..\third_party\Logger\ImGUILogger.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Effects\Display\Display.h" />
+    <ClInclude Include="..\Effects\Flou\Flou.h" />
+    <ClInclude Include="..\include\Application.h" />
+    <ClInclude Include="..\include\Camera.h" />
+    <ClInclude Include="..\include\EffectGL.h" />
+    <ClInclude Include="..\include\EngineGL.h" />
+    <ClInclude Include="..\include\Frame.h" />
+    <ClInclude Include="..\include\FrameBufferObject.h" />
+    <ClInclude Include="..\include\GeometricModel.h" />
+    <ClInclude Include="..\include\GeometricModelLoader\AssimpLoader.h" />
+    <ClInclude Include="..\include\GeometricModelLoader\GeometricModelLoader.h" />
+    <ClInclude Include="..\include\GeometricModelLoader\OBJLoader.h" />
+    <ClInclude Include="..\include\GLProgram.h" />
+    <ClInclude Include="..\include\GLProgramPipeline.h" />
+    <ClInclude Include="..\include\MaterialGL.h" />
+    <ClInclude Include="..\include\ModelGL.h" />
+    <ClInclude Include="..\include\Node.h" />
+    <ClInclude Include="..\include\NodeCollector.h" />
+    <ClInclude Include="..\include\Scene.h" />
+    <ClInclude Include="..\include\Texture2D.h" />
+    <ClInclude Include="..\Materials\BaseMaterial\BaseMaterial.h" />
+    <ClInclude Include="..\Materials\PhongMaterial\PhongMaterial.h" />
+    <ClInclude Include="..\Materials\Rotation\Rotation.h" />
+    <ClInclude Include="..\Materials\TextureMaterial\TextureMaterial.h" />
+    <ClInclude Include="..\third_party\image_DXT.h" />
+    <ClInclude Include="..\third_party\imgui\imconfig.h" />
+    <ClInclude Include="..\third_party\imgui\imgui.h" />
+    <ClInclude Include="..\third_party\imgui\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="..\third_party\imgui\imgui_internal.h" />
+    <ClInclude Include="..\third_party\imgui\stb_rect_pack.h" />
+    <ClInclude Include="..\third_party\imgui\stb_textedit.h" />
+    <ClInclude Include="..\third_party\imgui\stb_truetype.h" />
+    <ClInclude Include="..\third_party\Logger\ImGuiLogger.h" />
+    <ClInclude Include="..\third_party\Resource_mgr.hpp" />
+    <ClInclude Include="..\third_party\Singleton.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Effects\common\Effect-VS.glsl" />
+    <None Include="..\Effects\Display\Display-FS.glsl" />
+    <None Include="..\Effects\Flou\Flou-FS.glsl" />
+    <None Include="..\Effects\Flou\FlouH-FS.glsl" />
+    <None Include="..\Effects\Flou\FlouV-FS.glsl" />
+    <None Include="..\Materials\BaseMaterial\Main-FS.glsl" />
+    <None Include="..\Materials\BaseMaterial\Main-VS.glsl" />
+    <None Include="..\Materials\PhongMaterial\PhongMaterial-FS.glsl" />
+    <None Include="..\Materials\PhongMaterial\PhongMaterial-VS.glsl" />
+    <None Include="..\Materials\TextureMaterial\TextureMaterial-FS.glsl" />
+    <None Include="..\Materials\TextureMaterial\TextureMaterial-VS.glsl" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{7bfe6e7a-2266-4fc7-b9f6-0b9d9e05bf28}</ProjectGuid>
+    <RootNamespace>IMN401Application</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;USE_ASSIMP;%(PreprocessorDefinitions);_CRCT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)$/../include;$(SolutionDir)$/../third_party;$(SolutionDir)$/../third_party/glad/include;$(SolutionDir)$/..;$(SolutionDir)$/../third_party/imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3dll.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)$/../third_party/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)$/../include;$(SolutionDir)$/../third_party;$(SolutionDir)$/../third_party/glad/include;$(SolutionDir)$/..;$(SolutionDir)$/../third_party/imgui</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)$/../third_party/lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3dll.lib;assimp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

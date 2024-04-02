@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Fichiers sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Fichiers de ressources\Utils">
+      <UniqueIdentifier>{851c91ef-2c17-4598-afd9-fdf404279397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{1fc297ba-222f-47ef-bf1c-8842b88414d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\Utils\glad">
+      <UniqueIdentifier>{6de32b38-5ed9-4120-a6c3-a6629dc8fe0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\Utils\imgui">
+      <UniqueIdentifier>{772e9eb0-601f-4186-a7f5-f138859dc5f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects">
+      <UniqueIdentifier>{475af5b7-0ceb-4f07-bbd8-2ed7af2d2259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\common">
+      <UniqueIdentifier>{ab84bc1e-a763-4947-a98f-49fe82f24d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Display">
+      <UniqueIdentifier>{3f9fc197-d109-4b97-a74a-1abe59fa6134}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\BaseMaterial">
+      <UniqueIdentifier>{d14c8485-ebec-4667-a24c-b9bab80df035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\Rotation">
+      <UniqueIdentifier>{67daf43b-e6b1-4ce1-9c71-d9ae8ad77e2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\PhongMaterial">
+      <UniqueIdentifier>{012a97fa-5060-4596-aa69-ef5d3f92c483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\TextureMaterial">
+      <UniqueIdentifier>{3b179bab-4919-4dbd-a1d0-6bde41392e0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Flou">
+      <UniqueIdentifier>{491dfc06-3587-4317-9dad-bfc832e010b5}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Application.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Camera.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EngineGL.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Frame.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GLProgram.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GLProgramPipeline.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Main.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MaterialGL.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ModelGL.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Node.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Scene.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\Logger\ImGUILogger.cpp">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GeometricModel.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GeometricModelLoader\AssimpLoader.cpp">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GeometricModelLoader\OBJLoader.cpp">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\glad\src\glad.c">
+      <Filter>Fichiers de ressources\Utils\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\imgui\imgui.cpp">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\imgui\imgui_demo.cpp">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\imgui\imgui_draw.cpp">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\imgui\imgui_impl_glfw_gl3.cpp">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Texture2D.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\FrameBufferObject.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\third_party\image_DXT.cpp">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EffectGL.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Effects\Display\Display.cpp">
+      <Filter>Effects\Display</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Materials\BaseMaterial\BaseMaterial.cpp">
+      <Filter>Materials\BaseMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Materials\Rotation\Rotation.cpp">
+      <Filter>Materials\Rotation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Materials\PhongMaterial\PhongMaterial.cpp">
+      <Filter>Materials\PhongMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Materials\TextureMaterial\TextureMaterial.cpp">
+      <Filter>Materials\TextureMaterial</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Effects\Flou\Flou.cpp">
+      <Filter>Effects\Flou</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Application.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Camera.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EngineGL.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Frame.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GLProgram.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GLProgramPipeline.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\MaterialGL.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\ModelGL.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Node.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\NodeCollector.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Scene.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\Logger\ImGuiLogger.h">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\Resource_mgr.hpp">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\Singleton.h">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GeometricModelLoader\GeometricModelLoader.h">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GeometricModelLoader\AssimpLoader.h">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GeometricModelLoader\OBJLoader.h">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\GeometricModel.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\imgui\imgui_impl_glfw_gl3.h">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\imgui\imgui_internal.h">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\imgui\stb_rect_pack.h">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\imgui\stb_textedit.h">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\imgui\stb_truetype.h">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\imgui\imconfig.h">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\imgui\imgui.h">
+      <Filter>Fichiers de ressources\Utils\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Texture2D.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FrameBufferObject.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\third_party\image_DXT.h">
+      <Filter>Fichiers de ressources\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\EffectGL.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Effects\Display\Display.h">
+      <Filter>Effects\Display</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Materials\BaseMaterial\BaseMaterial.h">
+      <Filter>Materials\BaseMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Materials\Rotation\Rotation.h">
+      <Filter>Materials\Rotation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Materials\PhongMaterial\PhongMaterial.h">
+      <Filter>Materials\PhongMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Materials\TextureMaterial\TextureMaterial.h">
+      <Filter>Materials\TextureMaterial</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Effects\Flou\Flou.h">
+      <Filter>Effects\Flou</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Effects\common\Effect-VS.glsl">
+      <Filter>Effects\common</Filter>
+    </None>
+    <None Include="..\Materials\BaseMaterial\Main-FS.glsl">
+      <Filter>Materials\BaseMaterial</Filter>
+    </None>
+    <None Include="..\Materials\BaseMaterial\Main-VS.glsl">
+      <Filter>Materials\BaseMaterial</Filter>
+    </None>
+    <None Include="..\Materials\PhongMaterial\PhongMaterial-FS.glsl">
+      <Filter>Materials\PhongMaterial</Filter>
+    </None>
+    <None Include="..\Materials\PhongMaterial\PhongMaterial-VS.glsl">
+      <Filter>Materials\PhongMaterial</Filter>
+    </None>
+    <None Include="..\Materials\TextureMaterial\TextureMaterial-FS.glsl">
+      <Filter>Materials\TextureMaterial</Filter>
+    </None>
+    <None Include="..\Materials\TextureMaterial\TextureMaterial-VS.glsl">
+      <Filter>Materials\TextureMaterial</Filter>
+    </None>
+    <None Include="..\Effects\Display\Display-FS.glsl">
+      <Filter>Effects</Filter>
+    </None>
+    <None Include="..\Effects\Flou\Flou-FS.glsl">
+      <Filter>Effects\Flou</Filter>
+    </None>
+    <None Include="..\Effects\Flou\FlouH-FS.glsl">
+      <Filter>Effects\Flou</Filter>
+    </None>
+    <None Include="..\Effects\Flou\FlouV-FS.glsl">
+      <Filter>Effects\Flou</Filter>
+    </None>
+  </ItemGroup>
+</Project>
