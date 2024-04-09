@@ -119,12 +119,12 @@ bool EngineGL::init()
 	Texture2D* solTexture = new Texture2D(ObjPath + "Textures/Grass_005_BaseColor.jpg");
 	Texture2D* solNormal = new Texture2D(ObjPath + "Textures/Grass_005_Normal.jpg");
 	Texture2D* solAO = new Texture2D(ObjPath + "Textures/Grass_005_AmbientOcclusion.jpg");
-	Texture2D* solDisp = new Texture2D(ObjPath + "Textures/Grass_005_Height.jpg");
+	Texture2D* solDisp = new Texture2D(ObjPath + "Textures/Grass_005_Height.png");
 	TextureMaterial* materialSol = new TextureMaterial("IMN401-TP2-sol");
 	materialSol->addAlbedoMap(solTexture);
 	materialSol->addNormalMap(solNormal);
 	materialSol->addAOMap(solAO);
-	materialSol->addDispMap(solDisp, 10);
+	materialSol->addDispMap(solDisp, 0.05);
 
 	BaseMaterial* materialSphere = new BaseMaterial("IMN401-TP2-sphere");
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
@@ -149,9 +149,9 @@ bool EngineGL::init()
 	A->adopt(L);
 
 	Node* sol = scene->getNode("Sol");
-	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "wall.obj"));
+	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
 	sol->frame()->translate(glm::vec3(0, -2.4, 0));
-	sol->frame()->scale(glm::vec3(2));
+	sol->frame()->scale(glm::vec3(5));
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 

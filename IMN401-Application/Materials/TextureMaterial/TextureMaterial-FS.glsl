@@ -40,5 +40,6 @@ void main()
 
 	vec3 mixedColor = mix(mainTexture, secondaryTexture, secondaryTexture.w).xyz;
 	Color.xyz = Phong.x*mixedColor + Phong.y*Id*mixedColor + Phong.z*Is*vec3(1.0);
+	//Color.xyz = v_UV;
 	Color.w = 1.0;
 }

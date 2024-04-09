@@ -66,7 +66,7 @@ protected:
 	GLProgram* vp;
 	GLProgram* fp;
 
-	float hasAOMap = false;
+	float hasAOMap, hasDispMap = false;
 	GLuint l_View, l_Proj, l_Model, l_PosLum, l_PosCam, l_Phong, l_Albedo, l_Time, l_hasAOMap;
 	GLuint l_Texture, l_Texture2, l_normalMap, l_aoMap, l_disp;
 	Texture param;
