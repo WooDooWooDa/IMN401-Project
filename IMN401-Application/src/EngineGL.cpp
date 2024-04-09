@@ -156,13 +156,13 @@ bool EngineGL::init()
 
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
-	sol->frame()->translate(glm::vec3(0, -2.4, 0));
+	sol->frame()->translate(glm::vec3(0, 0, 0));
 	sol->frame()->scale(glm::vec3(10));
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 
 
-	for (int i = 0; i < 500; i++) {
+	for (int i = 0; i < 150; i++) {
 
 		GrassMaterial* materialGrass = new GrassMaterial("grass-" + i);
 		
@@ -173,14 +173,14 @@ bool EngineGL::init()
 		grass->frame()->rotate(glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
 
 		// Random translation
-		float x = randomFloat(-3.5, 3.5);
-		float z = randomFloat(-3.5, 3.5);
-		grass->frame()->translate(glm::vec3(x, -0.5, z));
+		float x = randomFloat(-1, 1);
+		float z = randomFloat(-1, 1);
+		grass->frame()->translate(glm::vec3(x, -0.26, z));
 
 		// Random rotation on the x-axis
 		float angle = randomFloat(0.0, 360.0);
 		grass->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(angle));
-		grass->frame()->scale(glm::vec3(0.5));
+		grass->frame()->scale(glm::vec3(0.25));
 
 		grass->setMaterial(materialGrass);
 		sol->adopt(grass);
