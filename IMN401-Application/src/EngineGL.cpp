@@ -151,7 +151,7 @@ bool EngineGL::init()
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
 	sol->frame()->translate(glm::vec3(0, -2.4, 0));
-	sol->frame()->scale(glm::vec3(5));
+	sol->frame()->scale(glm::vec3(10));
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 
