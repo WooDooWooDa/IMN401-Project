@@ -4,7 +4,7 @@
 #include <stb/stb_image.h>
 
 
-Texture2D::Texture2D(const std::string& filename):
+Texture2D::Texture2D(const std::string& filename, bool noRepeat):
 	name(filename),id(0), handle(0),format(GL_RGBA8),image(NULL)
 {
 	int channels;
@@ -15,7 +15,7 @@ Texture2D::Texture2D(const std::string& filename):
 	if (image == nullptr)
 		std::cout << "Error Loading image file " << filename << endl;
 	else
-		loadToGPU();
+		loadToGPU(noRepeat);
 
 
 	stbi_image_free(image);
@@ -44,11 +44,30 @@ void Texture2D::createEmptyTexture()
 	makeResident();
 }
 
+void Texture2D::createEmptyTextureNoRepeat() {
+	int numberOfLevel = (int)(1 + floor(log2(max(width, height))));
+	glCreateTextures(GL_TEXTURE_2D, 1, &id);
+
+	glTextureStorage2D(id, numberOfLevel, format, width, height);
+
+	glTextureParameteri(id, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTextureParameteri(id, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTextureParameteri(id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTextureParameteri(id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glGenerateTextureMipmap(id);
+	makeResident();
+}
 
 
-void Texture2D::loadToGPU()
+
+void Texture2D::loadToGPU(bool noRepeat)
 {
-	createEmptyTexture();
+	if (noRepeat) {
+		createEmptyTextureNoRepeat();
+	}
+	else {
+		createEmptyTexture();
+	}
 
 	glTextureSubImage2D(id, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
 	glGenerateTextureMipmap(id);
@@ -60,6 +79,12 @@ void Texture2D::makeResident()
 	handle = glGetTextureHandleARB(id);
 	glMakeTextureHandleResidentARB(handle);
 
+}
+
+void Texture2D::noRepeat()
+{
+	glTextureParameteri(id, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTextureParameteri(id, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 }
 
 

@@ -11,7 +11,7 @@ class Texture2D
 {
 public:
 
-	Texture2D(const std::string& filename);
+	Texture2D(const std::string& filename, bool noRepeat = false);
 
 	//Create an empty texture
 	Texture2D(int _width = 1024, int _height = 1024);
@@ -24,8 +24,11 @@ public:
 
 
 	void createEmptyTexture();
-	void loadToGPU();
+	void createEmptyTextureNoRepeat();
+	void loadToGPU(bool noRepeat);
 	void makeResident();
+
+	void noRepeat();
 
 
 	GLuint getId() {

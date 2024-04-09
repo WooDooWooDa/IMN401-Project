@@ -35,6 +35,12 @@ void main()
     vec3 Pos = Position;
 
     //Pos += (0.5*cos(2.0*Time)+0.5)*0.01 * Normal;
+
+    vec4 dv = texture2D(dispMap, TextureCoord.xy);
+    float df = 0.30*dv.x + 0.59*dv.y + 0.11*dv.z;
+    vec4 newVertexPos = vec4(Normal * df * dispFactor, 0.0);
+	gl_Position = Proj * View * Model * vec4(Pos, 1.0);
+
  	
  	vN =normalize(Normal);
 
