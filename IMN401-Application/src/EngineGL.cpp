@@ -109,12 +109,11 @@ bool EngineGL::init()
 	// TP 2 *******************************************
 	// 
 	//BaseMaterial* material = new BaseMaterial("IMN401-TP2-bunny");
-	Texture2D* bunnyTexture = new Texture2D(ObjPath + "Textures/Bunny1.png");
-	Texture2D* bunnyTexture2 = new Texture2D(ObjPath + "Textures/Bunny2.png");
-	Texture2D* bunnyNormal = new Texture2D(ObjPath + "Textures/Bunny_N.png");
-	TextureMaterial* materialBunny = new TextureMaterial("IMN401-TP2-bunny");
-	materialBunny->addAlbedoMap(bunnyTexture, bunnyTexture2);
-	materialBunny->addNormalMap(bunnyNormal);
+	Texture2D* lionTexture = new Texture2D(ObjPath + "Textures/Lion.jpg");
+	Texture2D* lionNormal = new Texture2D(ObjPath + "Textures/Lion_Normal.jpg");
+	TextureMaterial* materialLion = new TextureMaterial("IMN401-Projet-lion");
+	materialLion->addAlbedoMap(lionTexture);
+	materialLion->addNormalMap(lionNormal);
 
 	Texture2D* solTexture = new Texture2D(ObjPath + "Textures/Grass_005_BaseColor.jpg");
 	Texture2D* solNormal = new Texture2D(ObjPath + "Textures/Grass_005_Normal.jpg");
@@ -131,15 +130,16 @@ bool EngineGL::init()
 	
 
 	// d'un objet, méthode détaillée
-	Node* bunny = scene->getNode("Bunny");
-	bunny->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Bunny.obj"));
-	bunny->frame()->scale(glm::vec3(30.0));
-	bunny->setMaterial(materialBunny);
-	scene->getSceneNode()->adopt(bunny);
+	Node* lion = scene->getNode("Lion");
+	lion->setModel(scene->m_Models.get<ModelGL>(ObjPath + "LION_STATUE-triangulated.obj"));
+	//lion->frame()->scale(glm::vec3(2.0));
+	lion->frame()->translate(glm::vec3(0.0, -2, 0.0));
+	lion->setMaterial(materialLion);
+	scene->getSceneNode()->adopt(lion);
 
 	Node* A = scene->getNode("A");
 	A->setMaterial(rotation);
-	bunny->adopt(A);
+	lion->adopt(A);
 	
 	Node* L = scene->getNode("Light");
 	L->setModel(scene->m_Models.get<ModelGL>(ObjPath + "sphere.obj"));
