@@ -38,7 +38,7 @@ public:
 	~GrassMaterial();
 
 	//M�thodes
-	void addAlbedoMap(Texture2D * texture, Texture2D * texture2 = NULL);
+	void addAlbedoMap(Texture2D * texture);
 	/**
 		M�thode virtuelle qui est appel�e pour faire le rendu d'un objet en utilisant ce mat�riau
 		@param o : Node/Objet pour lequel on veut effectuer le rendu

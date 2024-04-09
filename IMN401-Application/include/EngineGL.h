@@ -59,6 +59,8 @@ public:
 	 */
 	void animate(const float elapsedTime);
 
+	float randomFloat(float min, float max);
+
 	/**
 	 * @brief	Resize the viewport
 	 * @param	w as width of the viewport

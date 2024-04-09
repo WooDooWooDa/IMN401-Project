@@ -25,24 +25,22 @@ GrassMaterial::~GrassMaterial()
 {
 }
 
-void GrassMaterial::addAlbedoMap(Texture2D* albedo, Texture2D* alpha) {
+void GrassMaterial::addAlbedoMap(Texture2D* albedo) {
 	l_Texture = glGetUniformLocation(fp->getId(), "albedo");
 	glProgramUniformHandleui64ARB(fp->getId(), l_Texture, albedo->getHandle());
-	glProgramUniformHandleui64ARB(fp->getId(), l_Texture2, albedo->getHandle());
-	if (alpha != NULL) {
-		glProgramUniformHandleui64ARB(fp->getId(), l_Texture2, alpha->getHandle());
-	}
+	
 }
 
 
 void GrassMaterial::render(Node* o)
 {
-
+	glDepthMask(GL_FALSE);
 
 	m_ProgramPipeline->bind();
 
 	o->drawGeometry(GL_TRIANGLES);
 	m_ProgramPipeline->release();
+	glDepthMask(GL_TRUE);
 }
 void GrassMaterial::animate(Node* o, const float elapsedTime)
 {
@@ -60,17 +58,7 @@ void GrassMaterial::animate(Node* o, const float elapsedTime)
 	glProgramUniformMatrix4fv(vp->getId(), l_Proj, 1, GL_FALSE, glm::value_ptr(proj));
 	glProgramUniformMatrix4fv(vp->getId(), l_Model, 1, GL_FALSE, glm::value_ptr(model));
 
-	// convertir le point (0,0,0) du repère "light" vers le repere de l'objet
-	glProgramUniform3fv(vp->getId(), l_PosLum, 1,  glm::value_ptr(Scene::getInstance()->getNode("Light")->frame()->convertPtTo(glm::vec3(0.0,0.0,0.0),o->frame())));
-	// convertir le point (0,0,0) du repère camera vers le repere de l'objet
-	glProgramUniform3fv(vp->getId(), l_PosCam, 1, glm::value_ptr(Scene::getInstance()->camera()->frame()->convertPtTo(glm::vec3(0.0, 0.0, 0.0), o->frame())));
 
-
-
-	auto now_time = std::chrono::high_resolution_clock::now();
-	auto timevar = now_time.time_since_epoch();
-	float millis = 0.001f*std::chrono::duration_cast<std::chrono::milliseconds>(timevar).count();
-	glProgramUniform1fv(vp->getId(), l_Time, 1,&millis);
 }
 
 

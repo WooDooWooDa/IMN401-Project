@@ -10,6 +10,8 @@
 #include <Materials/PhongMaterial/PhongMaterial.h>
 #include <Materials/TextureMaterial/TextureMaterial.h>
 #include <Effects/Flou/Flou.h>
+#include <Materials/GrassMaterial/GrassMaterial.h>
+#include <random>
 
 
 // Message callbck error for getting OpenGL problems 
@@ -95,6 +97,8 @@ void EngineGL::setupEngine()
 	LOG_INFO << "initialisation complete" << std::endl;
 }
 
+
+
 bool EngineGL::init()
 {
 
@@ -126,10 +130,9 @@ bool EngineGL::init()
 	materialSol->addAOMap(solAO);
 	materialSol->addDispMap(solDisp, 10);
 
-	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png");
+	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png", true);
+
 	Texture2D* grassAlpha = new Texture2D(ObjPath + "Textures/grass-alpha.png");
-	TextureMaterial* materialGrass = new TextureMaterial("grass");
-	materialGrass->addAlbedoMap(grassTexture);
 
 	BaseMaterial* materialSphere = new BaseMaterial("IMN401-TP2-sphere");
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
@@ -160,13 +163,33 @@ bool EngineGL::init()
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 
-	Node* grass = scene->getNode("Grass");
-	//Create a plane
-	grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
-	grass->frame()->rotate( glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
-	grass->setMaterial(materialGrass);
-	sol->adopt(grass);
 
+	for (int i = 0; i < 500; i++) {
+
+		GrassMaterial* materialGrass = new GrassMaterial("grass-" + i);
+		
+		materialGrass->addAlbedoMap(grassTexture);
+
+		Node* grass = scene->getNode("Grass" + std::to_string(i)); // Unique name for each grass node
+		grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
+		grass->frame()->rotate(glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
+
+		// Random translation
+		float x = randomFloat(-3.5, 3.5);
+		float z = randomFloat(-3.5, 3.5);
+		grass->frame()->translate(glm::vec3(x, -0.5, z));
+
+		// Random rotation on the x-axis
+		float angle = randomFloat(0.0, 360.0);
+		grass->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(angle));
+		grass->frame()->scale(glm::vec3(0.5));
+
+		grass->setMaterial(materialGrass);
+		sol->adopt(grass);
+	}
+
+	glEnable(GL_ALPHA_TEST);
+	glDisable(GL_CULL_FACE);
 
 	scene->getEffect<Flou>("Flou");
 
@@ -185,12 +208,7 @@ void EngineGL::render ()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
-		if (allNodes->nodes[i]->isTransparent) {
-			glDepthMask(GL_FALSE);
-		}
-		else {
-			glDepthMask(GL_TRUE);
-		}
+	
 		allNodes->nodes[i]->render();
 	}
 	myFBO->disable();
@@ -209,6 +227,13 @@ void EngineGL::animate (const float elapsedTime)
 
 	// Update Camera Buffer
 	scene->camera()->updateBuffer();
+}
+
+float EngineGL::randomFloat(float min, float max)
+{
+	static std::default_random_engine generator;
+	std::uniform_real_distribution<float> distribution(min, max);
+	return distribution(generator);
 }
 
 void EngineGL::onWindowResize(int w, int h)
