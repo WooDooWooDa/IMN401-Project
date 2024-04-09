@@ -65,6 +65,8 @@ void TextureMaterial::addDispMap(Texture2D* disp, float factor) {
 	l_disp = glGetUniformLocation(vp->getId(), "dispMap");
 	glProgramUniformHandleui64ARB(vp->getId(), l_disp, disp->getHandle());
 	glProgramUniform1fv(vp->getId(), glGetUniformLocation(vp->getId(), "dispFactor"), 1, &factor);
+	hasDispMap = true;
+	glProgramUniform1fv(vp->getId(), glGetUniformLocation(vp->getId(), "hasDispMap"), 1, &hasDispMap);
 }
 
 void TextureMaterial::render(Node* o)

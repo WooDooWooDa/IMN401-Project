@@ -10,6 +10,8 @@
 #include <Materials/PhongMaterial/PhongMaterial.h>
 #include <Materials/TextureMaterial/TextureMaterial.h>
 #include <Effects/Flou/Flou.h>
+#include <Materials/GrassMaterial/GrassMaterial.h>
+#include <random>
 
 
 // Message callbck error for getting OpenGL problems 
@@ -118,12 +120,16 @@ bool EngineGL::init()
 	Texture2D* solTexture = new Texture2D(ObjPath + "Textures/Grass_005_BaseColor.jpg");
 	Texture2D* solNormal = new Texture2D(ObjPath + "Textures/Grass_005_Normal.jpg");
 	Texture2D* solAO = new Texture2D(ObjPath + "Textures/Grass_005_AmbientOcclusion.jpg");
-	Texture2D* solDisp = new Texture2D(ObjPath + "Textures/Grass_005_Height.jpg");
+	Texture2D* solDisp = new Texture2D(ObjPath + "Textures/Grass_005_Height.png");
 	TextureMaterial* materialSol = new TextureMaterial("IMN401-TP2-sol");
 	materialSol->addAlbedoMap(solTexture);
 	materialSol->addNormalMap(solNormal);
 	materialSol->addAOMap(solAO);
-	materialSol->addDispMap(solDisp, 10);
+	materialSol->addDispMap(solDisp, 0.05);
+
+	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png", true);
+
+	Texture2D* grassAlpha = new Texture2D(ObjPath + "Textures/grass-alpha.png");
 
 	BaseMaterial* materialSphere = new BaseMaterial("IMN401-TP2-sphere");
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
@@ -149,12 +155,39 @@ bool EngineGL::init()
 	A->adopt(L);
 
 	Node* sol = scene->getNode("Sol");
-	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "wall.obj"));
+	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
 	sol->frame()->translate(glm::vec3(0, -2.4, 0));
-	sol->frame()->scale(glm::vec3(2));
+	sol->frame()->scale(glm::vec3(10));
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 
+
+	for (int i = 0; i < 500; i++) {
+
+		GrassMaterial* materialGrass = new GrassMaterial("grass-" + i);
+		
+		materialGrass->addAlbedoMap(grassTexture);
+
+		Node* grass = scene->getNode("Grass" + std::to_string(i)); // Unique name for each grass node
+		grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
+		grass->frame()->rotate(glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
+
+		// Random translation
+		float x = randomFloat(-3.5, 3.5);
+		float z = randomFloat(-3.5, 3.5);
+		grass->frame()->translate(glm::vec3(x, -0.5, z));
+
+		// Random rotation on the x-axis
+		float angle = randomFloat(0.0, 360.0);
+		grass->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(angle));
+		grass->frame()->scale(glm::vec3(0.5));
+
+		grass->setMaterial(materialGrass);
+		sol->adopt(grass);
+	}
+
+	glEnable(GL_ALPHA_TEST);
+	glDisable(GL_CULL_FACE);
 
 	scene->getEffect<Flou>("Flou");
 
@@ -169,9 +202,13 @@ void EngineGL::render ()
 	myFBO->enable();
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	for (unsigned int i = 0; i < allNodes->nodes.size(); i++)
-		allNodes->nodes[i]->render();
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
 	
+		allNodes->nodes[i]->render();
+	}
 	myFBO->disable();
 	flou->apply(myFBO, NULL);
 	//display->apply(myFBO, NULL);
@@ -188,6 +225,13 @@ void EngineGL::animate (const float elapsedTime)
 
 	// Update Camera Buffer
 	scene->camera()->updateBuffer();
+}
+
+float EngineGL::randomFloat(float min, float max)
+{
+	static std::default_random_engine generator;
+	std::uniform_real_distribution<float> distribution(min, max);
+	return distribution(generator);
 }
 
 void EngineGL::onWindowResize(int w, int h)

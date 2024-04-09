@@ -21,6 +21,7 @@ class Node
 		~Node();
 
 		Node(const Node& toCopy);
+		bool isTransparent;
 
 		const std::string getName();
 		void setName(std::string name);
