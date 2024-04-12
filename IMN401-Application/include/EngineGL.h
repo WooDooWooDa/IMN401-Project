@@ -115,6 +115,7 @@ protected:
 	Scene* scene;
 
 	NodeCollector* allNodes;
+	vector<glm::mat4> grassesTransformations;
 
 
 
@@ -124,7 +125,7 @@ protected:
 	Flou* flou;
 
 	NodeCollector* opaqueNodes;
-	NodeCollector* transparentNodes;
+	std::vector<Node*> transparentNodes;
 
 };
 #endif

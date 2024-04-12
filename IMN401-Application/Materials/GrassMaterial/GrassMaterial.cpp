@@ -34,13 +34,16 @@ void GrassMaterial::addAlbedoMap(Texture2D* albedo) {
 
 void GrassMaterial::render(Node* o)
 {
-	glDepthMask(GL_FALSE);
+	//glDepthMask(GL_FALSE);
 
 	m_ProgramPipeline->bind();
-
-	o->drawGeometry(GL_TRIANGLES);
+	for (unsigned int i = 0; i < transformations.size(); i++) {
+		glm::mat4 model = o->frame()->getModelMatrix() * transformations[i];
+		glProgramUniformMatrix4fv(vp->getId(), l_Model, 1, GL_FALSE, glm::value_ptr(model));
+		o->drawGeometry(GL_TRIANGLES);
+	}
 	m_ProgramPipeline->release();
-	glDepthMask(GL_TRUE);
+	/*glDepthMask(GL_TRUE);*/
 }
 void GrassMaterial::animate(Node* o, const float elapsedTime)
 {
@@ -50,15 +53,20 @@ void GrassMaterial::animate(Node* o, const float elapsedTime)
 	//Recuperer la matrice proj
 	glm::mat4 proj = Scene::getInstance()->camera()->getProjectionMatrix();
 	//Recuperer la matrice model
-	glm::mat4 model = o->frame()->getModelMatrix();
+
 
 
 
 	glProgramUniformMatrix4fv(vp->getId(), l_View, 1, GL_FALSE, glm::value_ptr(view));
 	glProgramUniformMatrix4fv(vp->getId(), l_Proj, 1, GL_FALSE, glm::value_ptr(proj));
-	glProgramUniformMatrix4fv(vp->getId(), l_Model, 1, GL_FALSE, glm::value_ptr(model));
 
 
+
+}
+
+void GrassMaterial::setTransformations(vector<glm::mat4> trans)
+{
+	transformations = trans;
 }
 
 
