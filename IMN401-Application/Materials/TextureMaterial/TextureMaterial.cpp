@@ -30,7 +30,7 @@ TextureMaterial::TextureMaterial(string name) :
 
 
 	param.albedo = glm::vec3(1.0, 1.0, 1.0);
-	param.coeff = glm::vec4(0.3,0.8,0.0,5.0);
+	param.coeff = glm::vec4(0.45,1.0,0.0,5.0);
 
 	l_Time = glGetUniformLocation(vp->getId(), "Time");
 
@@ -118,7 +118,7 @@ void TextureMaterial::updatePhong()
 
 void TextureMaterial::displayInterface()
 {
-	if (ImGui::SliderFloat4("Phong coeff", glm::value_ptr(param.coeff), 0, 50)) {
+	if (ImGui::SliderFloat4("Phong coeff", glm::value_ptr(param.coeff), 0, 10)) {
 		updatePhong();
 	}
 }

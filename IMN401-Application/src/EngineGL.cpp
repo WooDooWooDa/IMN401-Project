@@ -132,6 +132,18 @@ bool EngineGL::init()
 	TextureMaterial* torchMat = new TextureMaterial("Torch");
 	torchMat->addAlbedoMap(torchTex);
 	torchMat->addNormalMap(torchNormal);
+	TextureMaterial* torchMat2 = new TextureMaterial("Torch2");
+	torchMat2->addAlbedoMap(torchTex);
+	torchMat2->addNormalMap(torchNormal);
+
+	Texture2D* pillarTex = new Texture2D(ObjPath + "Textures/Pillar_diff.jpg");
+	Texture2D* pillarNormal = new Texture2D(ObjPath + "Textures/Pillar_nrm.jpg");
+	TextureMaterial* pillarMat = new TextureMaterial("Pillar");
+	pillarMat->addAlbedoMap(pillarTex);
+	pillarMat->addNormalMap(pillarNormal);
+	TextureMaterial* pillarMat2 = new TextureMaterial("Pillar2");
+	pillarMat2->addAlbedoMap(pillarTex);
+	pillarMat2->addNormalMap(pillarNormal);
 
 	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png", true);
 
@@ -150,23 +162,6 @@ bool EngineGL::init()
 	Node* A = scene->getNode("A");
 	A->setMaterial(rotation);
 	lion->adopt(A);
-	
-	Node* torch = scene->getNode("Torch");
-	torch->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Wall_Torch.obj"));
-	torch->setMaterial(torchMat);
-	torch->frame()->scale(glm::vec3(3.0));
-	torch->frame()->translate(glm::vec3(0.7, 0.2, 0.0));
-	scene->getSceneNode()->adopt(torch);
-
-	LightNode* lightNode = new LightNode("Light", glm::vec4(0.9, 0.5, 0.1, 1.0));
-	Node* light = scene->createNode("Light", (Node*)lightNode);
-	light->frame()->translate(glm::vec3(0.0, 0.5, 0.0));
-	torch->adopt(light);
-
-	LightNode* lightNode1 = new LightNode("Light1", glm::vec4(0.1, 0.5, 0.9, 1.0));
-	Node* light1 = scene->createNode("Light1", (Node*)lightNode1);
-	light1->frame()->translate(glm::vec3(-4.0, 0.5, 0.0));
-	torch->adopt(light1);
 
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
@@ -174,6 +169,39 @@ bool EngineGL::init()
 	sol->frame()->scale(glm::vec3(10));
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
+
+	Node* pillar1 = scene->getNode("Pillar1");
+	pillar1->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Pillar.obj"));
+	pillar1->frame()->translate(glm::vec3(-0.95, 0.025, -0.95));
+	pillar1->setMaterial(pillarMat);
+	sol->adopt(pillar1);
+
+	Node* pillar2 = scene->getNode("Pillar2");
+	pillar2->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Pillar.obj"));
+	pillar2->frame()->translate(glm::vec3(0.95, 0.025, -0.95));
+	pillar2->setMaterial(pillarMat2);
+	sol->adopt(pillar2);
+
+	Node* torch = scene->getNode("Torch");
+	torch->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Wall_Torch.obj"));
+	torch->setMaterial(torchMat);
+	pillar1->adopt(torch);
+	torch->frame()->translate(glm::vec3(0.125, 0.25, 0.125));
+	torch->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(-45.0));
+	torch->frame()->scale(glm::vec3(0.25));
+
+	Node* torch2 = scene->getNode("Torch2");
+	torch2->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Wall_Torch.obj"));
+	torch2->setMaterial(torchMat2);
+	pillar2->adopt(torch2);
+	torch2->frame()->translate(glm::vec3(-0.125, 0.25, 0.125));
+	torch2->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(-135.0));
+	torch2->frame()->scale(glm::vec3(0.25));
+
+	LightNode* lightNode = new LightNode("Light", glm::vec4(0.9, 0.5, 0.1, 1.0));
+	Node* light = scene->createNode("Light", (Node*)lightNode);
+	light->frame()->translate(glm::vec3(0.0, 0.5, 0.0));
+	torch2->adopt(light);
 
 	GrassMaterial* materialGrass = new GrassMaterial("grass");
 
@@ -189,10 +217,13 @@ bool EngineGL::init()
 	sol->adopt(grass);
 	transparentNodes.push_back(grass);
 	for (int i = 0; i < 1000; i++) {
-
-		float x = randomFloat(-9, 9);
+		float x;
+		float z;
+		do {
+			x = randomFloat(-9, 9);
+			z = randomFloat(-9, 9);
+		} while ((x >= -3.5 && x <= 3.5) && (z >= -6 && z <= 5));
 		float y = randomFloat(-1.15, -1);
-		float z = randomFloat(-9, 9);
 		glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, z));
 
 		float angle = randomFloat(0.0, 360.0);
