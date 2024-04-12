@@ -52,6 +52,7 @@ public:
 	*/
 	virtual void animate(Node* o, const float elapsedTime);
 
+	void setTransformations(vector<glm::mat4>);
 
 
 
@@ -64,6 +65,7 @@ protected:
 	
 	GLuint l_View, l_Proj, l_Model, l_PosLum, l_PosCam, l_Time;
 	GLuint l_Texture, l_Texture2;
+	vector<glm::mat4> transformations;
 
 };
 

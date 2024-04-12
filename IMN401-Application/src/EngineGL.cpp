@@ -161,33 +161,37 @@ bool EngineGL::init()
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 
+	GrassMaterial* materialGrass = new GrassMaterial("grass");
 
-	for (int i = 0; i < 150; i++) {
+	materialGrass->addAlbedoMap(grassTexture);
 
-		GrassMaterial* materialGrass = new GrassMaterial("grass-" + i);
-		
-		materialGrass->addAlbedoMap(grassTexture);
+	Node* grass = scene->getNode("Grass");
+	grass->isTransparent = true;
+	grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
+	grass->frame()->rotate(glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
+	grass->frame()->scale(glm::vec3(0.10));
+	//grass->frame()->translate(glm::vec3(0, -1, 0));
+	grass->setMaterial(materialGrass);
+	sol->adopt(grass);
+	transparentNodes.push_back(grass);
+	for (int i = 0; i < 1000; i++) {
 
-		Node* grass = scene->getNode("Grass" + std::to_string(i)); // Unique name for each grass node
-		grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
-		grass->frame()->rotate(glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
+		float x = randomFloat(-9, 9);
+		float y = randomFloat(-1.15, -1);
+		float z = randomFloat(-9, 9);
+		glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, z));
 
-		// Random translation
-		float x = randomFloat(-1, 1);
-		float z = randomFloat(-1, 1);
-		grass->frame()->translate(glm::vec3(x, -0.26, z));
-
-		// Random rotation on the x-axis
 		float angle = randomFloat(0.0, 360.0);
-		grass->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(angle));
-		grass->frame()->scale(glm::vec3(0.25));
+		glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		grass->setMaterial(materialGrass);
-		sol->adopt(grass);
+		glm::mat4 transformation = translation * rotation;
+
+		grassesTransformations.push_back(transformation);
 	}
 
-	glEnable(GL_ALPHA_TEST);
-	glDisable(GL_CULL_FACE);
+	materialGrass->setTransformations(grassesTransformations);
+	// glEnable(GL_ALPHA_TEST);
+	// glDisable(GL_CULL_FACE);
 
 	scene->getEffect<Flou>("Flou");
 
@@ -198,17 +202,39 @@ bool EngineGL::init()
 
 void EngineGL::render ()
 {
+
+	std::map<float, Node*> sorted;
+	for (unsigned int i = 0; i < transparentNodes.size(); i++)
+	{
+		glm::vec3 nodePosition = transparentNodes[i]->frame()->convertPtTo(glm::vec3(0), scene->frame());
+		float distance = glm::length(scene->camera()->frame()->convertPtTo(glm::vec3(0), scene->frame()) - nodePosition);
+		//float distance = glm::length(camera.Position - windows[i]);
+		sorted[distance] = transparentNodes[i];
+	}
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	myFBO->enable();
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// glEnable(GL_BLEND);
+	// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
 	
-		allNodes->nodes[i]->render();
+		if (!allNodes->nodes[i]->isTransparent) {
+			allNodes->nodes[i]->render();
+		}
 	}
+
+
+	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
+
+		if (allNodes->nodes[i]->isTransparent) {
+		allNodes->nodes[i]->render();
+		}
+	}
+
+
 	myFBO->disable();
 	flou->apply(myFBO, NULL);
 	//display->apply(myFBO, NULL);
