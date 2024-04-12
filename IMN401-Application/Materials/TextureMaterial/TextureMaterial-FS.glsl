@@ -12,6 +12,7 @@ uniform bool hasAO;
 uniform sampler2D aoMap;
 
 in VTF {
+vec3 LightColor;
 vec3 vL;
 vec3 vV;
 vec3 vN;
@@ -39,6 +40,6 @@ void main()
 	float Is = pow(max(0,dot(reflect(-L,normalTexture.xyz),V)),Phong.w);
 
 	vec3 mixedColor = mix(mainTexture, secondaryTexture, secondaryTexture.w).xyz;
-	Color.xyz = Phong.x*mixedColor + Phong.y*Id*mixedColor + Phong.z*Is*vec3(1.0);
+	Color.xyz = Phong.x*mixedColor + (Phong.y*Id*mixedColor + Phong.z*Is) * LightColor;
 	Color.w = 1.0;
 }

@@ -2,8 +2,7 @@
 #include "EngineGL.h"
 #include "Scene.h"
 
-
-
+#include "FlickeringLightColor.h"
 #include "Texture2D.h"
 #include <Materials/BaseMaterial/BaseMaterial.h>
 #include <Materials/Rotation/Rotation.h>
@@ -128,11 +127,16 @@ bool EngineGL::init()
 	materialSol->addAOMap(solAO);
 	materialSol->addDispMap(solDisp, 0.05);
 
+	Texture2D* torchTex = new Texture2D(ObjPath + "Textures/Wall_Sconce_BaseColor_4k - Copie.png");
+	Texture2D* torchNormal = new Texture2D(ObjPath + "Textures/Wall_Sconce_Normal_4k.png");
+	TextureMaterial* torchMat = new TextureMaterial("Torch");
+	torchMat->addAlbedoMap(torchTex);
+	torchMat->addNormalMap(torchNormal);
+
 	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png", true);
 
 	Texture2D* grassAlpha = new Texture2D(ObjPath + "Textures/grass-alpha.png");
 
-	BaseMaterial* materialSphere = new BaseMaterial("IMN401-TP2-sphere");
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
 	
 
@@ -147,11 +151,22 @@ bool EngineGL::init()
 	A->setMaterial(rotation);
 	lion->adopt(A);
 	
-	Node* L = scene->getNode("Light");
-	L->setModel(scene->m_Models.get<ModelGL>(ObjPath + "sphere.obj"));
-	L->setMaterial(materialSphere);
-	L->frame()->translate(glm::vec3(0.2, 0.0, 0.0));
-	A->adopt(L);
+	Node* torch = scene->getNode("Torch");
+	torch->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Wall_Torch.obj"));
+	torch->setMaterial(torchMat);
+	torch->frame()->scale(glm::vec3(3.0));
+	torch->frame()->translate(glm::vec3(0.7, 0.2, 0.0));
+	scene->getSceneNode()->adopt(torch);
+
+	LightNode* lightNode = new LightNode("Light", glm::vec4(0.9, 0.5, 0.1, 1.0));
+	Node* light = scene->createNode("Light", (Node*)lightNode);
+	light->frame()->translate(glm::vec3(0.0, 0.5, 0.0));
+	torch->adopt(light);
+
+	LightNode* lightNode1 = new LightNode("Light1", glm::vec4(0.1, 0.5, 0.9, 1.0));
+	Node* light1 = scene->createNode("Light1", (Node*)lightNode1);
+	light1->frame()->translate(glm::vec3(-4.0, 0.5, 0.0));
+	torch->adopt(light1);
 
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));

@@ -7,6 +7,7 @@ uniform mat4 View;
 uniform mat4 Proj;
 uniform vec3 PosCam;
 uniform vec3 PosLum;
+uniform vec4 ColorLum;
 uniform float Time;
 
 uniform sampler2D dispMap;
@@ -24,6 +25,7 @@ layout (location = 3) in vec3 TextureCoord;
 layout (location = 4) in vec4 Tangente;
 
 out VTF {
+vec3 LightColor;
 vec3 vL;
 vec3 vV;
 vec3 vN;
@@ -33,8 +35,6 @@ vec3 v_Color;
 void main()
 {
     vec3 Pos = Position;
-
-    //Pos += (0.5*cos(2.0*Time)+0.5)*0.01 * Normal;
 
     vec4 dv = texture2D(dispMap, TextureCoord.xy);
     float df = 0.30*dv.x + 0.59*dv.y + 0.11*dv.z;
@@ -58,6 +58,8 @@ void main()
         Pos = Pos + Normal * dv.x * dispFactor;
     }
     
+    LightColor = ColorLum.xyz;
+
 	gl_Position = Proj * View * Model * vec4(Pos, 1.0);
     v_Color = TextureCoord;
 

@@ -83,6 +83,12 @@ Node* Scene::getNode(std::string name)
 	return(m_Nodes.get(name));
 }
 
+Node* Scene::createNode(std::string name, Node* newNode)
+{
+	m_Nodes.insert(name, newNode);
+	return newNode;
+}
+
 
 void Scene::releaseNode(Node *n)
 {

@@ -15,6 +15,6 @@ void main()
 	vec4 mainTexture = texture2D(albedo, v_UV.xy);
 	if(mainTexture.a <0.5)
 		discard;
-    Color = mainTexture;
+    Color = mainTexture * 0.8;
 	Color.a = 1.0;
 }

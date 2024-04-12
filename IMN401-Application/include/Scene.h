@@ -27,6 +27,7 @@ public:
 	
 	Node* getRoot();
 	Node* getNode(std::string name);
+	Node* createNode(std::string name, Node* newNode);
 	
 
 	template <class R>  R* getModel(string a)
