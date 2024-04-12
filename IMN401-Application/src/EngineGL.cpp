@@ -112,9 +112,11 @@ bool EngineGL::init()
 	// 
 	Texture2D* lionTexture = new Texture2D(ObjPath + "Textures/Lion.jpg");
 	Texture2D* lionNormal = new Texture2D(ObjPath + "Textures/Lion_Normal.jpg");
+	Texture2D* lionAO = new Texture2D(ObjPath + "Textures/Lion_AO.jpg");
 	TextureMaterial* materialLion = new TextureMaterial("IMN401-Projet-lion");
 	materialLion->addAlbedoMap(lionTexture);
 	materialLion->addNormalMap(lionNormal);
+	materialLion->addAOMap(lionAO);
 
 	Texture2D* solTexture = new Texture2D(ObjPath + "Textures/Grass_005_BaseColor.jpg");
 	Texture2D* solNormal = new Texture2D(ObjPath + "Textures/Grass_005_Normal.jpg");
