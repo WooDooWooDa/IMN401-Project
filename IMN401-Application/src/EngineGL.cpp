@@ -110,7 +110,6 @@ bool EngineGL::init()
 	// 
 	// TP 2 *******************************************
 	// 
-	//BaseMaterial* material = new BaseMaterial("IMN401-TP2-bunny");
 	Texture2D* lionTexture = new Texture2D(ObjPath + "Textures/Lion.jpg");
 	Texture2D* lionNormal = new Texture2D(ObjPath + "Textures/Lion_Normal.jpg");
 	TextureMaterial* materialLion = new TextureMaterial("IMN401-Projet-lion");
@@ -137,9 +136,8 @@ bool EngineGL::init()
 
 	// d'un objet, méthode détaillée
 	Node* lion = scene->getNode("Lion");
-	lion->setModel(scene->m_Models.get<ModelGL>(ObjPath + "LION_STATUE-triangulated.obj"));
-	//lion->frame()->scale(glm::vec3(2.0));
-	lion->frame()->translate(glm::vec3(0.0, -2, 0.0));
+	lion->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Lion-triangulated.obj"));
+	lion->frame()->translate(glm::vec3(0.0, 0.5, 0.0));
 	lion->setMaterial(materialLion);
 	scene->getSceneNode()->adopt(lion);
 
@@ -151,7 +149,6 @@ bool EngineGL::init()
 	L->setModel(scene->m_Models.get<ModelGL>(ObjPath + "sphere.obj"));
 	L->setMaterial(materialSphere);
 	L->frame()->translate(glm::vec3(0.2, 0.0, 0.0));
-	L->frame()->scale(glm::vec3(0.03));
 	A->adopt(L);
 
 	Node* sol = scene->getNode("Sol");
