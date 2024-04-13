@@ -118,6 +118,12 @@ bool EngineGL::init()
 	materialLion->addNormalMap(lionNormal);
 	materialLion->addAOMap(lionAO);
 
+	TextureMaterial* materialBunny = new TextureMaterial("IMN401-bunny");
+	Texture2D* bunnyTexture = new Texture2D(ObjPath + "Textures/Bunny1.png");
+	Texture2D* bunnyNormal = new Texture2D(ObjPath + "Textures/Bunny_N.png");
+	materialBunny->addAlbedoMap(bunnyTexture);
+	materialBunny->addNormalMap(bunnyNormal);
+
 	Texture2D* solTexture = new Texture2D(ObjPath + "Textures/Grass_005_BaseColor.jpg");
 	Texture2D* solNormal = new Texture2D(ObjPath + "Textures/Grass_005_Normal.jpg");
 	Texture2D* solAO = new Texture2D(ObjPath + "Textures/Grass_005_AmbientOcclusion.jpg");
@@ -132,7 +138,6 @@ bool EngineGL::init()
 
 	Texture2D* grassAlpha = new Texture2D(ObjPath + "Textures/grass-alpha.png");
 
-	BaseMaterial* materialSphere = new BaseMaterial("IMN401-TP2-sphere");
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
 	
 
@@ -147,11 +152,13 @@ bool EngineGL::init()
 	A->setMaterial(rotation);
 	lion->adopt(A);
 	
-	Node* L = scene->getNode("Light");
-	L->setModel(scene->m_Models.get<ModelGL>(ObjPath + "sphere.obj"));
-	L->setMaterial(materialSphere);
-	L->frame()->translate(glm::vec3(0.2, 0.0, 0.0));
-	A->adopt(L);
+	
+	Node* bunny = scene->getNode("Bunny");
+	bunny->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Bunny.obj"));
+	bunny->setMaterial(materialBunny);
+	bunny->frame()->translate(glm::vec3(8, 0.5, 0.0));
+	bunny->frame()->scale(glm::vec3(10.0));
+	A->adopt(bunny);
 
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
@@ -161,7 +168,7 @@ bool EngineGL::init()
 	scene->getSceneNode()->adopt(sol);
 
 
-	for (int i = 0; i < 150; i++) {
+	/*for (int i = 0; i < 150; i++) {
 
 		GrassMaterial* materialGrass = new GrassMaterial("grass-" + i);
 		
@@ -183,8 +190,8 @@ bool EngineGL::init()
 
 		grass->setMaterial(materialGrass);
 		sol->adopt(grass);
-	}
-
+	}*/
+	
 	glEnable(GL_ALPHA_TEST);
 	glDisable(GL_CULL_FACE);
 
