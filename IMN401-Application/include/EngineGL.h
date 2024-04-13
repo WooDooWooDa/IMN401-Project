@@ -10,7 +10,7 @@
 #include "Scene.h"
 #include <glm/glm.hpp>
 
-#include <Effects/Flou/Flou.h>
+#include <Effects/Blur/EffectBlur.h>
 
 
 #include "FrameBufferObject.h"
@@ -121,8 +121,9 @@ protected:
 
 	// For TP 4
 	FrameBufferObject* myFBO;
+	FrameBufferObject* depthFBO;
 	Display* display;
-	Flou* flou;
+	EffectBlur* dofBlur;
 
 	NodeCollector* opaqueNodes;
 	std::vector<Node*> transparentNodes;

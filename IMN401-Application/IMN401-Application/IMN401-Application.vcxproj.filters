@@ -49,6 +49,15 @@
     <Filter Include="Effects\Flou">
       <UniqueIdentifier>{491dfc06-3587-4317-9dad-bfc832e010b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Effects\DepthBlur">
+      <UniqueIdentifier>{74cbb65f-a0bf-4996-8241-517d74c78063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials\Depth">
+      <UniqueIdentifier>{72adaf45-21df-452b-ad88-a066e7147dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Effects\Blur">
+      <UniqueIdentifier>{c33a1b11-4ffe-464c-afd4-520eb32c6926}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Application.cpp">
@@ -146,6 +155,12 @@
     </ClCompile>
     <ClCompile Include="..\src\LightNode.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Materials\DepthTexture\DepthMaterial.cpp">
+      <Filter>Materials\Depth</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Effects\Blur\EffectBlur.cpp">
+      <Filter>Effects\Blur</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -260,6 +275,12 @@
     <ClInclude Include="..\include\FlickeringLightColor.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="..\Materials\DepthTexture\DepthMaterial.h">
+      <Filter>Materials\Depth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Effects\Blur\EffectBlur.h">
+      <Filter>Effects\Blur</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Effects\common\Effect-VS.glsl">
@@ -297,5 +318,14 @@
     </None>
     <None Include="..\Materials\GrassMaterial\GrassMaterial-FS.glsl" />
     <None Include="..\Materials\GrassMaterial\GrassMaterial-VS.glsl" />
+    <None Include="..\Effects\DepthFieldBlur\depth-FS.glsl">
+      <Filter>Effects\DepthBlur</Filter>
+    </None>
+    <None Include="..\Effects\DepthFieldBlur\depth-VS.glsl">
+      <Filter>Effects\DepthBlur</Filter>
+    </None>
+    <None Include="..\Effects\Blur\Shaders\EffectBlur-FS.glsl">
+      <Filter>Effects\Blur</Filter>
+    </None>
   </ItemGroup>
 </Project>

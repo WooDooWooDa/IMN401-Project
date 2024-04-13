@@ -10,6 +10,7 @@
 #include <Materials/TextureMaterial/TextureMaterial.h>
 #include <Effects/Flou/Flou.h>
 #include <Materials/GrassMaterial/GrassMaterial.h>
+#include <Materials/DepthTexture/DepthMaterial.h>
 #include <random>
 
 
@@ -102,8 +103,9 @@ bool EngineGL::init()
 	LOG_INFO << "Initializing Scene" << std::endl;
 
 	myFBO = new FrameBufferObject();
+	depthFBO = new FrameBufferObject();
 	display = new Display("Main");
-	flou = new Flou("Flou");
+	dofBlur = new EffectBlur("Flou");
 
 	//Création d'un materiau de Base
 	// 
@@ -250,11 +252,28 @@ void EngineGL::render ()
 	}
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	depthFBO->enable();
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	DepthMaterial* depthMat = new DepthMaterial();
+	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
+		if (!allNodes->nodes[i]->isTransparent) {
+			allNodes->nodes[i]->render(depthMat);
+		}
+	}
+	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
+		if (allNodes->nodes[i]->isTransparent) {
+			allNodes->nodes[i]->render(depthMat);
+		}
+	}
+	dofBlur->setDepth(depthFBO);
+	depthFBO->disable();
+
+
 	myFBO->enable();
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// glEnable(GL_BLEND);
-	// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
 	
@@ -263,17 +282,16 @@ void EngineGL::render ()
 		}
 	}
 
-
 	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
 
 		if (allNodes->nodes[i]->isTransparent) {
-		allNodes->nodes[i]->render();
+			allNodes->nodes[i]->render();
 		}
 	}
 
 
 	myFBO->disable();
-	flou->apply(myFBO, NULL);
+	dofBlur->apply(myFBO, NULL);
 	//display->apply(myFBO, NULL);
 }
 
@@ -315,21 +333,20 @@ void EngineGL::setClearColor(glm::vec4 color)
 }
 void EngineGL::displayInterface()
 {
-	if (myFBO)
+	if (myFBO && depthFBO)
 	{
 		if (ImGui::BeginMainMenuBar())
 		{
 			if (ImGui::BeginMenu("FBOs"))
 			{
 				ImGui::MenuItem(myFBO->getName().c_str(), NULL, &(myFBO->show_interface));
+				ImGui::MenuItem(depthFBO->getName().c_str(), NULL, &(depthFBO->show_interface));
 				ImGui::EndMenu();
 			}
 			ImGui::EndMainMenuBar();
 		}
 
 		myFBO->displayInterface();
-	}
-	if (flou) {
-		flou->displayInterface();
+		depthFBO->displayInterface();
 	}
 }
