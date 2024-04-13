@@ -134,7 +134,6 @@ bool EngineGL::init()
 	materialSol->addDispMap(solDisp, 0.05);
 
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
-	
 
 	// d'un objet, méthode détaillée
 	Node* lion = scene->getNode("Lion");
@@ -152,6 +151,7 @@ bool EngineGL::init()
 	bunny->setMaterial(materialBunny);
 	bunny->frame()->translate(glm::vec3(8, 0.5, 0.0));
 	bunny->frame()->scale(glm::vec3(10.0));
+	bunny->frame()->rotate(glm::vec3(0, 1, 0), glm::radians(-90.0f));
 	A->adopt(bunny);
 
 	Node* sol = scene->getNode("Sol");
