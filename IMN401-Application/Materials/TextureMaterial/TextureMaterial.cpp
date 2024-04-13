@@ -2,6 +2,8 @@
 #include "TextureMaterial.h"
 #include "Node.h"
 #include <glm/gtc/type_ptr.hpp>
+#include <FlickeringLightColor.h>
+#include <random>
 
 
 TextureMaterial::TextureMaterial(string name) :
@@ -28,7 +30,7 @@ TextureMaterial::TextureMaterial(string name) :
 
 
 	param.albedo = glm::vec3(1.0, 1.0, 1.0);
-	param.coeff = glm::vec4(0.3,0.8,0.0,5.0);
+	param.coeff = glm::vec4(0.45,1.0,0.0,5.0);
 
 	l_Time = glGetUniformLocation(vp->getId(), "Time");
 
@@ -88,18 +90,17 @@ void TextureMaterial::animate(Node* o, const float elapsedTime)
 	//Recuperer la matrice model
 	glm::mat4 model = o->frame()->getModelMatrix();
 
-
-
 	glProgramUniformMatrix4fv(vp->getId(), l_View, 1, GL_FALSE, glm::value_ptr(view));
 	glProgramUniformMatrix4fv(vp->getId(), l_Proj, 1, GL_FALSE, glm::value_ptr(proj));
 	glProgramUniformMatrix4fv(vp->getId(), l_Model, 1, GL_FALSE, glm::value_ptr(model));
 
 	// convertir le point (0,0,0) du repère "light" vers le repere de l'objet
+	LightNode* light = (LightNode*)Scene::getInstance()->getNode("Light");
+	glProgramUniform4fv(vp->getId(), glGetUniformLocation(vp->getId(), "ColorLum"), 1, glm::value_ptr(light->color));
+
 	glProgramUniform3fv(vp->getId(), l_PosLum, 1,  glm::value_ptr(Scene::getInstance()->getNode("Light")->frame()->convertPtTo(glm::vec3(0.0,0.0,0.0),o->frame())));
 	// convertir le point (0,0,0) du repère camera vers le repere de l'objet
 	glProgramUniform3fv(vp->getId(), l_PosCam, 1, glm::value_ptr(Scene::getInstance()->camera()->frame()->convertPtTo(glm::vec3(0.0, 0.0, 0.0), o->frame())));
-
-
 
 	auto now_time = std::chrono::high_resolution_clock::now();
 	auto timevar = now_time.time_since_epoch();
@@ -117,11 +118,10 @@ void TextureMaterial::updatePhong()
 
 void TextureMaterial::displayInterface()
 {
-	if (ImGui::SliderFloat4("Phong coeff", glm::value_ptr(param.coeff), 0, 50)) {
+	if (ImGui::SliderFloat4("Phong coeff", glm::value_ptr(param.coeff), 0, 10)) {
 		updatePhong();
 	}
 }
-
 
 
 

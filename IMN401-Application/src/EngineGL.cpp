@@ -2,8 +2,7 @@
 #include "EngineGL.h"
 #include "Scene.h"
 
-
-
+#include "FlickeringLightColor.h"
 #include "Texture2D.h"
 #include <Materials/BaseMaterial/BaseMaterial.h>
 #include <Materials/Rotation/Rotation.h>
@@ -134,10 +133,6 @@ bool EngineGL::init()
 	materialSol->addAOMap(solAO);
 	materialSol->addDispMap(solDisp, 0.05);
 
-	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png", true);
-
-	Texture2D* grassAlpha = new Texture2D(ObjPath + "Textures/grass-alpha.png");
-
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
 	
 
@@ -151,14 +146,18 @@ bool EngineGL::init()
 	Node* A = scene->getNode("A");
 	A->setMaterial(rotation);
 	lion->adopt(A);
-	
-	
 	Node* bunny = scene->getNode("Bunny");
 	bunny->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Bunny.obj"));
 	bunny->setMaterial(materialBunny);
 	bunny->frame()->translate(glm::vec3(8, 0.5, 0.0));
 	bunny->frame()->scale(glm::vec3(10.0));
 	A->adopt(bunny);
+
+	Node* L = scene->getNode("Light");
+	L->setModel(scene->m_Models.get<ModelGL>(ObjPath + "sphere.obj"));
+	L->setMaterial(materialSphere);
+	L->frame()->translate(glm::vec3(0.2, 0.0, 0.0));
+	A->adopt(L);
 
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
@@ -167,33 +166,87 @@ bool EngineGL::init()
 	sol->setMaterial(materialSol);
 	scene->getSceneNode()->adopt(sol);
 
+	//PILLARS
+	Node* pillars[4];
+	TextureMaterial* pillarMats[4];
+	Texture2D* pillarTex = new Texture2D(ObjPath + "Textures/Pillar_diff.jpg");
+	Texture2D* pillarNormal = new Texture2D(ObjPath + "Textures/Pillar_nrm.jpg");
+	Node* torches[4];
+	TextureMaterial* torchMats[4];
+	Texture2D* torchTex = new Texture2D(ObjPath + "Textures/Wall_Sconce_BaseColor_4k - Copie.png");
+	Texture2D* torchNormal = new Texture2D(ObjPath + "Textures/Wall_Sconce_Normal_4k.png");
+	for (size_t i = 0; i < 4; i++)
+	{
+		pillarMats[i] = new TextureMaterial("M_Pillar" + std::to_string(i));
+		pillarMats[i]->addAlbedoMap(pillarTex);
+		pillarMats[i]->addNormalMap(pillarNormal);
 
-	/*for (int i = 0; i < 150; i++) {
+		pillars[i] = scene->getNode("N_Pillar" + std::to_string(i));
+		pillars[i]->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Pillar.obj"));
+		pillars[i]->frame()->translate(glm::vec3((i < 2 ? 1 : -1) * 0.95, 0.025, (i % 2 == 0 ? -1 : 1) * 0.95));
+		pillars[i]->setMaterial(pillarMats[i]);
+		float angle = 0;
+		if (i == 0) angle = -90;
+		else if (i == 1) angle = -180;
+		else if (i == 2) angle = 0;
+		else angle = 90;
+		pillars[i]->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(angle));
+		sol->adopt(pillars[i]);
 
-		GrassMaterial* materialGrass = new GrassMaterial("grass-" + i);
-		
-		materialGrass->addAlbedoMap(grassTexture);
+		torchMats[i] = new TextureMaterial("M_Torch" + std::to_string(i));
+		torchMats[i]->addAlbedoMap(torchTex);
+		torchMats[i]->addNormalMap(torchNormal);
 
-		Node* grass = scene->getNode("Grass" + std::to_string(i)); // Unique name for each grass node
-		grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
-		grass->frame()->rotate(glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
+		torches[i] = scene->getNode("N_Torch" + std::to_string(i));
+		torches[i]->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Wall_Torch.obj"));
+		torches[i]->setMaterial(torchMats[i]);
+		pillars[i]->adopt(torches[i]);
+		torches[i]->frame()->translate(glm::vec3(0.125, 0.25, 0.125));
+		torches[i]->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(-45.0));
+		torches[i]->frame()->scale(glm::vec3(0.25));
+	}
 
-		// Random translation
-		float x = randomFloat(-1, 1);
-		float z = randomFloat(-1, 1);
-		grass->frame()->translate(glm::vec3(x, -0.26, z));
+	LightNode* lightNode = new LightNode("Light", glm::vec4(0.9, 0.5, 0.1, 1.0));
+	Node* light = scene->createNode("Light", (Node*)lightNode);
+	light->frame()->translate(glm::vec3(0.0, 0.5, 0.0));
+	torches[0]->adopt(light);
 
-		// Random rotation on the x-axis
+	//GRASS
+	GrassMaterial* materialGrass = new GrassMaterial("grass");
+	Texture2D* grassTexture = new Texture2D(ObjPath + "Textures/grass.png", true);
+	Texture2D* grassAlpha = new Texture2D(ObjPath + "Textures/grass-alpha.png");
+	materialGrass->addAlbedoMap(grassTexture);
+
+	Node* grass = scene->getNode("Grass");
+	grass->isTransparent = true;
+	grass->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Quad.obj"));
+	grass->frame()->rotate(glm::vec3(0.0, 0.0, 1.0), glm::radians(180.0f));
+	grass->frame()->scale(glm::vec3(0.10));
+	//grass->frame()->translate(glm::vec3(0, -1, 0));
+	grass->setMaterial(materialGrass);
+	sol->adopt(grass);
+	transparentNodes.push_back(grass);
+	for (int i = 0; i < 1000; i++) {
+		float x;
+		float z;
+		do {
+			x = randomFloat(-9, 9);
+			z = randomFloat(-9, 9);
+		} while ((x >= -3.5 && x <= 3.5) && (z >= -6 && z <= 5));
+		float y = randomFloat(-1.15, -1);
+		glm::mat4 translation = glm::translate(glm::mat4(1.0f), glm::vec3(x, y, z));
+
 		float angle = randomFloat(0.0, 360.0);
-		grass->frame()->rotate(glm::vec3(0.0, 1.0, 0.0), glm::radians(angle));
-		grass->frame()->scale(glm::vec3(0.25));
+		glm::mat4 rotation = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 1.0f, 0.0f));
 
-		grass->setMaterial(materialGrass);
-		sol->adopt(grass);
-	}*/
-	
-	glEnable(GL_ALPHA_TEST);
-	glDisable(GL_CULL_FACE);
+		glm::mat4 transformation = translation * rotation;
+
+		grassesTransformations.push_back(transformation);
+	}
+
+	materialGrass->setTransformations(grassesTransformations);
+	// glEnable(GL_ALPHA_TEST);
+	// glDisable(GL_CULL_FACE);
 
 	scene->getEffect<Flou>("Flou");
 
@@ -204,17 +257,39 @@ bool EngineGL::init()
 
 void EngineGL::render ()
 {
+
+	std::map<float, Node*> sorted;
+	for (unsigned int i = 0; i < transparentNodes.size(); i++)
+	{
+		glm::vec3 nodePosition = transparentNodes[i]->frame()->convertPtTo(glm::vec3(0), scene->frame());
+		float distance = glm::length(scene->camera()->frame()->convertPtTo(glm::vec3(0), scene->frame()) - nodePosition);
+		//float distance = glm::length(camera.Position - windows[i]);
+		sorted[distance] = transparentNodes[i];
+	}
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	myFBO->enable();
 	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	// glEnable(GL_BLEND);
+	// glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
 	
-		allNodes->nodes[i]->render();
+		if (!allNodes->nodes[i]->isTransparent) {
+			allNodes->nodes[i]->render();
+		}
 	}
+
+
+	for (unsigned int i = 0; i < allNodes->nodes.size(); i++) {
+
+		if (allNodes->nodes[i]->isTransparent) {
+		allNodes->nodes[i]->render();
+		}
+	}
+
+
 	myFBO->disable();
 	flou->apply(myFBO, NULL);
 	//display->apply(myFBO, NULL);

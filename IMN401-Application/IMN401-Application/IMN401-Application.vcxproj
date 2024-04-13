@@ -37,6 +37,7 @@
     <ClCompile Include="..\src\GeometricModelLoader\OBJLoader.cpp" />
     <ClCompile Include="..\src\GLProgram.cpp" />
     <ClCompile Include="..\src\GLProgramPipeline.cpp" />
+    <ClCompile Include="..\src\LightNode.cpp" />
     <ClCompile Include="..\src\Main.cpp" />
     <ClCompile Include="..\src\MaterialGL.cpp" />
     <ClCompile Include="..\src\ModelGL.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="..\include\Camera.h" />
     <ClInclude Include="..\include\EffectGL.h" />
     <ClInclude Include="..\include\EngineGL.h" />
+    <ClInclude Include="..\include\FlickeringLightColor.h" />
     <ClInclude Include="..\include\Frame.h" />
     <ClInclude Include="..\include\FrameBufferObject.h" />
     <ClInclude Include="..\include\GeometricModel.h" />

@@ -13,5 +13,8 @@ layout (location = 0) out vec4 Color;
 void main()
 {
 	vec4 mainTexture = texture2D(albedo, v_UV.xy);
-    Color = mainTexture;
+	if(mainTexture.a <0.5)
+		discard;
+    Color = mainTexture * 0.8;
+	Color.a = 1.0;
 }

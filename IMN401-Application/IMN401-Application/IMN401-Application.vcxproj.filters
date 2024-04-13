@@ -141,6 +141,12 @@
     <ClCompile Include="..\Effects\Flou\Flou.cpp">
       <Filter>Effects\Flou</Filter>
     </ClCompile>
+    <ClCompile Include="..\Materials\GrassMaterial\GrassMaterial.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\LightNode.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Application.h">
@@ -248,6 +254,12 @@
     <ClInclude Include="..\Effects\Flou\Flou.h">
       <Filter>Effects\Flou</Filter>
     </ClInclude>
+    <ClInclude Include="..\Materials\GrassMaterial\GrassMaterial.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\FlickeringLightColor.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Effects\common\Effect-VS.glsl">
@@ -283,5 +295,7 @@
     <None Include="..\Effects\Flou\FlouV-FS.glsl">
       <Filter>Effects\Flou</Filter>
     </None>
+    <None Include="..\Materials\GrassMaterial\GrassMaterial-FS.glsl" />
+    <None Include="..\Materials\GrassMaterial\GrassMaterial-VS.glsl" />
   </ItemGroup>
 </Project>
