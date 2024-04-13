@@ -146,18 +146,13 @@ bool EngineGL::init()
 	Node* A = scene->getNode("A");
 	A->setMaterial(rotation);
 	lion->adopt(A);
+
 	Node* bunny = scene->getNode("Bunny");
 	bunny->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Bunny.obj"));
 	bunny->setMaterial(materialBunny);
 	bunny->frame()->translate(glm::vec3(8, 0.5, 0.0));
 	bunny->frame()->scale(glm::vec3(10.0));
 	A->adopt(bunny);
-
-	Node* L = scene->getNode("Light");
-	L->setModel(scene->m_Models.get<ModelGL>(ObjPath + "sphere.obj"));
-	L->setMaterial(materialSphere);
-	L->frame()->translate(glm::vec3(0.2, 0.0, 0.0));
-	A->adopt(L);
 
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
