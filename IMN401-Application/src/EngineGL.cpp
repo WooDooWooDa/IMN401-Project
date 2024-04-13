@@ -119,6 +119,12 @@ bool EngineGL::init()
 	materialLion->addNormalMap(lionNormal);
 	materialLion->addAOMap(lionAO);
 
+	TextureMaterial* materialBunny = new TextureMaterial("IMN401-bunny");
+	Texture2D* bunnyTexture = new Texture2D(ObjPath + "Textures/Bunny1.png");
+	Texture2D* bunnyNormal = new Texture2D(ObjPath + "Textures/Bunny_N.png");
+	materialBunny->addAlbedoMap(bunnyTexture);
+	materialBunny->addNormalMap(bunnyNormal);
+
 	Texture2D* solTexture = new Texture2D(ObjPath + "Textures/Grass_005_BaseColor.jpg");
 	Texture2D* solNormal = new Texture2D(ObjPath + "Textures/Grass_005_Normal.jpg");
 	Texture2D* solAO = new Texture2D(ObjPath + "Textures/Grass_005_AmbientOcclusion.jpg");
@@ -130,7 +136,6 @@ bool EngineGL::init()
 	materialSol->addDispMap(solDisp, 0.05);
 
 	Rotation* rotation = new Rotation("IMN401-TP2-rotation");
-	
 
 	// d'un objet, méthode détaillée
 	Node* lion = scene->getNode("Lion");
@@ -142,6 +147,14 @@ bool EngineGL::init()
 	Node* A = scene->getNode("A");
 	A->setMaterial(rotation);
 	lion->adopt(A);
+
+	Node* bunny = scene->getNode("Bunny");
+	bunny->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Bunny.obj"));
+	bunny->setMaterial(materialBunny);
+	bunny->frame()->translate(glm::vec3(8, 0.5, 0.0));
+	bunny->frame()->scale(glm::vec3(10.0));
+	bunny->frame()->rotate(glm::vec3(0, 1, 0), glm::radians(-90.0f));
+	A->adopt(bunny);
 
 	Node* sol = scene->getNode("Sol");
 	sol->setModel(scene->m_Models.get<ModelGL>(ObjPath + "Displacement_plane.obj"));
