@@ -19,9 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Effects\Blur\EffectBlur.cpp" />
     <ClCompile Include="..\Effects\Display\Display.cpp" />
     <ClCompile Include="..\Effects\Flou\Flou.cpp" />
     <ClCompile Include="..\Materials\BaseMaterial\BaseMaterial.cpp" />
+    <ClCompile Include="..\Materials\DepthTexture\DepthMaterial.cpp" />
     <ClCompile Include="..\Materials\GrassMaterial\GrassMaterial.cpp" />
     <ClCompile Include="..\Materials\PhongMaterial\PhongMaterial.cpp" />
     <ClCompile Include="..\Materials\Rotation\Rotation.cpp" />
@@ -53,6 +55,7 @@
     <ClCompile Include="..\third_party\Logger\ImGUILogger.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Effects\Blur\EffectBlur.h" />
     <ClInclude Include="..\Effects\Display\Display.h" />
     <ClInclude Include="..\Effects\Flou\Flou.h" />
     <ClInclude Include="..\include\Application.h" />
@@ -75,6 +78,7 @@
     <ClInclude Include="..\include\Scene.h" />
     <ClInclude Include="..\include\Texture2D.h" />
     <ClInclude Include="..\Materials\BaseMaterial\BaseMaterial.h" />
+    <ClInclude Include="..\Materials\DepthTexture\DepthMaterial.h" />
     <ClInclude Include="..\Materials\GrassMaterial\GrassMaterial.h" />
     <ClInclude Include="..\Materials\PhongMaterial\PhongMaterial.h" />
     <ClInclude Include="..\Materials\Rotation\Rotation.h" />
@@ -92,7 +96,10 @@
     <ClInclude Include="..\third_party\Singleton.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Effects\Blur\Shaders\EffectBlur-FS.glsl" />
     <None Include="..\Effects\common\Effect-VS.glsl" />
+    <None Include="..\Effects\DepthFieldBlur\depth-FS.glsl" />
+    <None Include="..\Effects\DepthFieldBlur\depth-VS.glsl" />
     <None Include="..\Effects\Display\Display-FS.glsl" />
     <None Include="..\Effects\Flou\Flou-FS.glsl" />
     <None Include="..\Effects\Flou\FlouH-FS.glsl" />
